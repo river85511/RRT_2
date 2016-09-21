@@ -12,6 +12,8 @@
 #include <QDebug>
 
 
+#define PI 3.14159265359
+
 class RRT: public QObject
 {
     Q_OBJECT
@@ -28,6 +30,11 @@ public:
 
     void growTree();
 
+    State genSampleState();
+    double gauss_distribution(double mean, double std);
+
+    void updateTreeVector(Vertex* vertex);
+
 public slots:
     void drawDot(Vertex* vertex);
     void drawEdge(Vertex* vertex1, Vertex* vertex2);
@@ -42,6 +49,9 @@ private:
     bool startIsSetOrNot;
     Vertex *goal;
     bool goalIsSetOrNot;
+
+    Vertex* root;
+    std::vector<Vertex *> treeVector;
 
     cv::Mat* map;
     cv::Mat grayMap;
